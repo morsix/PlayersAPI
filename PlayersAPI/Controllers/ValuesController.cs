@@ -1,12 +1,12 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 
 namespace PlayersAPI.Controllers
 {
-    [Route("api/[controller]")]
+
+    [EnableCors("AllowMyOrigin")]
+    [Route("api/values")]
     [ApiController]
     public class ValuesController : ControllerBase
     {
