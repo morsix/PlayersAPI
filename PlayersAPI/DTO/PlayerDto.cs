@@ -1,4 +1,6 @@
-﻿namespace PlayersAPI.DTO
+﻿using System.ComponentModel.DataAnnotations;
+
+namespace PlayersAPI.DTO
 {
     public class PlayerDto
     {
@@ -8,6 +10,7 @@
 
         public string Picture { get; set; }
 
+        [Key]
         public int Age { get; set; }
 
         public int YellowCards { get; set; }

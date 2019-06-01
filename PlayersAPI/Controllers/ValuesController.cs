@@ -1,6 +1,9 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.EntityFrameworkCore;
+using PlayersAPI.DTO;
 
 namespace PlayersAPI.Controllers
 {
@@ -10,11 +13,26 @@ namespace PlayersAPI.Controllers
     [ApiController]
     public class ValuesController : ControllerBase
     {
+        //We inject the DBContext into the controller...
+        private PlayersDbContext _context;
+
+        public ValuesController(PlayersDbContext context)
+        {
+            _context = context;
+        }
+
         // GET api/values
         [HttpGet]
         public ActionResult<IEnumerable<string>> Get()
         {
             return new string[] { "value1", "value2" };
+        }
+
+        [HttpGet("players")]
+        public ActionResult<IEnumerable<PlayerDto>> GetPlayers()
+        {
+            var players = _context.Players.Include(p => p.Team).ToList();
+            return players;
         }
 
         // GET api/values/5
