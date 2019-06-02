@@ -1,9 +1,13 @@
-﻿using Microsoft.AspNetCore.Builder;
+﻿using AutoMapper;
+using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
+using PlayersAPI.Repository;
+using PlayersAPI.Services;
+using System;
 
 namespace PlayersAPI
 {
@@ -28,9 +32,14 @@ namespace PlayersAPI
                                 .AllowAnyMethod()); 
             });
 
+            services.AddScoped<IPlayerService, PlayerService>();
+            services.AddScoped<IPlayerRepository, PlayerRepository>();
+
             services.AddDbContext<PlayersDbContext>(opt => opt.UseInMemoryDatabase(databaseName: "MyInMemDB"));
 
-            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);
+            services.AddAutoMapper(AppDomain.CurrentDomain.GetAssemblies());
+
+            services.AddMvc().SetCompatibilityVersion(CompatibilityVersion.Version_2_1);           
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

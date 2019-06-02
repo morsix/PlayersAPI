@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using PlayersAPI.DTO;
+using PlayersAPI.Services;
 using System.Collections.Generic;
 
 namespace PlayersAPI.Controllers
@@ -10,32 +11,20 @@ namespace PlayersAPI.Controllers
     [ApiController]
     public class PlayerController : ControllerBase
     {
+        private readonly IPlayerService _playerService;
+        
+        public PlayerController(IPlayerService playerService)
+        {
+            _playerService = playerService;
+        }
+        
         // GET api/players
         [HttpGet]
         public ActionResult<IEnumerable<PlayerDto>> Get()
         {
-            var players = new List<PlayerDto>() {
-                 new PlayerDto()
-                 {
-                     Name = "Cele",
-                     Team = new TeamDto()
-                     {
-                         Name = "Barcelona"
-                     }
-
-                 },
-                 new PlayerDto()
-                 {
-                     Name = "Victor",
-                     Team = new TeamDto()
-                     {
-                         Name = "Real"
-                     }
-                 }
-            };
+            var players = _playerService.Get();
 
             return Ok(players);
-
         }
     }
 }
