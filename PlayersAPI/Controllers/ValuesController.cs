@@ -32,7 +32,7 @@ namespace PlayersAPI.Controllers
         public ActionResult<IEnumerable<PlayerDto>> GetPlayers()
         {
             var players = _context.Players.Include(p => p.Team).ToList();
-            return players;
+            return Ok();
         }
 
         // GET api/values/5

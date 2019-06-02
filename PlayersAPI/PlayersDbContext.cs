@@ -1,5 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
-using PlayersAPI.DTO;
+using PlayersAPI.Models;
 
 namespace PlayersAPI
 {
@@ -10,9 +10,9 @@ namespace PlayersAPI
         {
         }
 
-        public DbSet<PlayerDto> Players { get; set; }
+        public DbSet<Player> Players { get; set; }
 
-        public DbSet<TeamDto> Teams { get; set; }
+        public DbSet<Team> Teams { get; set; }
 
     }
 }

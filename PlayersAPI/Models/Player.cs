@@ -1,13 +1,17 @@
-﻿namespace PlayersAPI.DTO
+﻿using System;
+using System.ComponentModel.DataAnnotations;
+
+namespace PlayersAPI.Models
 {
-    public class PlayerDto
+    public class Player
     {
-        public string Guid { get; set; }
+        [Key]
+        public Guid Guid { get; set; }
 
         public bool IsActive { get; set; }
 
         public string Picture { get; set; }
-
+        
         public int Age { get; set; }
 
         public int YellowCards { get; set; }
@@ -22,7 +26,6 @@
 
         public string Gender { get; set; }
 
-        public TeamDto Team { get; set; }
-
+        public Team Team { get; set; }
     }
 }
