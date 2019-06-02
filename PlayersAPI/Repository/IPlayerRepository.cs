@@ -5,6 +5,6 @@ namespace PlayersAPI.Repository
 {
     public interface IPlayerRepository
     {
-        IQueryable<Player> Get();
+        IQueryable<Player> Get(string keyword);
     }
 }

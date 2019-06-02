@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using AutoMapper;
 using PlayersAPI.DTO;
+using PlayersAPI.Helpers;
 using PlayersAPI.Repository;
 
 namespace PlayersAPI.Services
@@ -19,11 +20,18 @@ namespace PlayersAPI.Services
             _mapper = mapper;
         }
 
-        public IEnumerable<PlayerDto> Get()
+        public PlayerPaginationWrapper Get(PaginationInfo paginationInfo)
         {
-            var entities = _playerRepository.Get();
+            var query = _playerRepository.Get(paginationInfo.Keyword);
 
-            return  _mapper.Map<IEnumerable<PlayerDto>>(entities);
+            var paginatedQuery = query.Skip(paginationInfo.PageSize * (paginationInfo.Page - 1)).Take(paginationInfo.PageSize);
+
+            var mappings =  _mapper.Map<IEnumerable<PlayerDto>>(paginatedQuery);
+
+            var totalPages = (int)Math.Ceiling((double)query.Count() / paginationInfo.PageSize);
+
+            return new PlayerPaginationWrapper(totalPages, mappings.ToList());
+
         }
     }
 }

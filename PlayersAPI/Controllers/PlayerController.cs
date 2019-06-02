@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Cors;
 using Microsoft.AspNetCore.Mvc;
 using PlayersAPI.DTO;
+using PlayersAPI.Helpers;
 using PlayersAPI.Services;
 using System.Collections.Generic;
 
@@ -19,10 +20,10 @@ namespace PlayersAPI.Controllers
         }
         
         // GET api/players
-        [HttpGet]
-        public ActionResult<IEnumerable<PlayerDto>> Get()
+        [HttpPost]
+        public ActionResult<PlayerPaginationWrapper> Get(PaginationInfo paginationInfo)
         {
-            var players = _playerService.Get();
+            var players = _playerService.Get(paginationInfo);
 
             return Ok(players);
         }
