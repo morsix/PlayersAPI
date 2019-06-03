@@ -23,6 +23,11 @@ namespace PlayersAPI.Controllers
         [HttpPost]
         public ActionResult<PlayerPaginationWrapper> Get(PaginationInfo paginationInfo)
         {
+            if (!ModelState.IsValid)
+            {
+                return BadRequest(ModelState);
+            }
+
             var players = _playerService.Get(paginationInfo);
 
             return Ok(players);
