@@ -13,16 +13,9 @@ namespace PlayersAPI.Repository
             _context = context;
         }
 
-        public IQueryable<Player> Get(string keyword)
+        public IQueryable<Player> Get()
         {
-            var query = _context.Players.Include(p => p.Team).Where(p=>p.Guid == p.Guid);
-
-            if (!string.IsNullOrWhiteSpace(keyword))
-            {
-                query = query.Where(p => EF.Functions.Like(p.Name, $"%{keyword}%"));
-            }
-
-            return query;
+            return _context.Players.Include(p => p.Team).Where(p => p.Guid == p.Guid);
         }
     }
 }
