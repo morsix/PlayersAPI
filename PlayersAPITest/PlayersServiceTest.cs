@@ -13,7 +13,7 @@ namespace PlayersAPITest
     public class PlayersServiceTest
     {
         [Fact]
-        public void Player_Controller_Get()
+        public void Player_Service_Get()
         {
             //Arrange
             var mockRepo = new Mock<IPlayerRepository>();
@@ -21,12 +21,21 @@ namespace PlayersAPITest
 
             var query = new List<Player>().AsQueryable();
 
+            var paginationInfo = new PaginationInfo
+            {
+                Page = 1,
+                PageSize = 10,
+                SortBy = "",
+                Keyword = "",
+                Order = true
+            };
+
             mockRepo.Setup(p => p.Get()).Returns(query);
 
             var playerService = new PlayerService(mockRepo.Object, mockMapper.Object);
 
             //Act
-            var objectResult = playerService.Get(It.IsAny<PaginationInfo>());
+            var objectResult = playerService.Get(paginationInfo);
 
 
             //Assert
